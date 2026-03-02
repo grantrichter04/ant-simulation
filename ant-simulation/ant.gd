@@ -14,6 +14,12 @@ func _process(delta: float) -> void:
 		var screen = get_viewport_rect().size
 		position.x = wrapf(position.x, 0, screen.x)
 		position.y = wrapf(position.y, 0, screen.y)
+		
+		get_node("../PheromoneMap").deposit(position)
+		
+		
+		
+		
 func _draw () -> void:
 		var points = PackedVector2Array ([
 			Vector2(10,0),
