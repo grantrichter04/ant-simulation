@@ -1,14 +1,14 @@
 extends Node2D
 
 var cell_size = 10
-var decay_rate = 0.2
+var decay_rate = 0.1
 var grid = []
 var image = []
 var texture=[]
 var screen =[]
-var new_deposit_strength = 2
+var new_deposit_strength = 20
 var max_pheromone = 100
-
+var current_delta = 0.0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -34,12 +34,14 @@ func deposit (position):
 	cell_x = clamp(cell_x, 0, int(screen.x/cell_size)-1)
 	cell_y = clamp(cell_y, 0, int(screen.y/cell_size)-1)
 	grid[cell_y][cell_x]+=new_deposit_strength
+	#grid[cell_y][cell_x]+=new_deposit_strength*current_delta
 	grid[cell_y][cell_x]=clamp(grid[cell_y][cell_x],0,100)
 	image.set_pixel(cell_x,cell_y,Color(0, 0.8, 0, grid[cell_y][cell_x] / max_pheromone))
 	texture.update(image)
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+	current_delta = delta
 	queue_redraw()
 	for i in int(screen.y/cell_size):
 		for q in int(screen.x/cell_size):

@@ -1,7 +1,10 @@
 extends Node2D
 
 var speed = 50.0
-var turn_speed = 30.0
+var turn_speed = 15.0
+var last_deposit = Vector2(500,300)
+var deposit_distance =5
+
 
 func _ready() -> void:
 	position = Vector2(500,300)
@@ -15,7 +18,9 @@ func _process(delta: float) -> void:
 		position.x = wrapf(position.x, 0, screen.x)
 		position.y = wrapf(position.y, 0, screen.y)
 		
-		get_node("../PheromoneMap").deposit(position)
+		if position.distance_to(last_deposit) >=deposit_distance:
+			get_node("../PheromoneMap").deposit(position)
+			last_deposit = position
 		
 		
 		
