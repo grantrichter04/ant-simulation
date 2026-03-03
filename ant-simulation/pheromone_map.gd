@@ -9,6 +9,7 @@ var screen =[]
 var new_deposit_strength = 20
 var max_pheromone = 100
 var current_delta = 0.0
+var mouse_held = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -38,6 +39,19 @@ func deposit (position):
 	grid[cell_y][cell_x]=clamp(grid[cell_y][cell_x],0,100)
 	image.set_pixel(cell_x,cell_y,Color(0, 0.8, 0, grid[cell_y][cell_x] / max_pheromone))
 	texture.update(image)
+	
+func sample(position):
+	var cell_x = int(position.x / cell_size)
+	var cell_y = int(position.y / cell_size)
+	cell_x = clamp(cell_x, 0, int(screen.x/cell_size)-1)
+	cell_y = clamp(cell_y, 0, int(screen.y/cell_size)-1)
+	return grid[cell_y][cell_x]
+	
+func _input(event):
+	if event is InputEventMouseButton:
+		mouse_held = event.pressed
+	if event is InputEventMouseMotion and mouse_held:
+		deposit(get_global_mouse_position())
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
