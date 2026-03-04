@@ -1,12 +1,18 @@
 [gd_scene format=3 uid="uid://cfvbft1saav37"]
 
 [ext_resource type="Script" uid="uid://b15388u5p0jhq" path="res://pheromone_map.gd" id="1_0xm2m"]
-[ext_resource type="Script" uid="uid://cdmladuglc735" path="res://ant.gd" id="1_ig7tw"]
+[ext_resource type="Script" uid="uid://d3iuryu3pwpom" path="res://main.gd" id="1_1bvp3"]
+[ext_resource type="Script" uid="uid://dyqh5fpmkpagd" path="res://ant_colony.gd" id="1_h2yge"]
 
 [node name="Node2D" type="Node2D" unique_id=735122095]
+script = ExtResource("1_1bvp3")
+
+[node name="Ant_Colony" type="Node2D" parent="." unique_id=2117035087]
+script = ExtResource("1_h2yge")
 
 [node name="PheromoneMap" type="Node2D" parent="." unique_id=710030328]
 script = ExtResource("1_0xm2m")
 
-[node name="Ant" type="Node2D" parent="." unique_id=825032529]
-script = ExtResource("1_ig7tw")
+[node name="Label" type="Label" parent="." unique_id=1927672552]
+offset_right = 40.0
+offset_bottom = 23.0

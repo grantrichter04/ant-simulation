@@ -20,6 +20,7 @@ var wander_threshold = 20.0
 var wander_turn = 0.0
 var wander_range_min = 15
 var wander_range_max = 40
+var pheromone_map
 
 
 func _ready() -> void:
@@ -47,12 +48,12 @@ func _process(delta: float) -> void:
 		
 		if havefood:
 			if position.distance_to(last_deposit) >=deposit_distance:
-				get_node("../PheromoneMap").deposit(position)
+				pheromone_map.deposit(position)
 				last_deposit = position
 		
-		left_sensor_strength=get_node("../PheromoneMap").sample(left_sensor)
-		forward_sensor_strength = get_node("../PheromoneMap").sample(forward_sensor)
-		right_sensor_strength = get_node("../PheromoneMap").sample(right_sensor)
+		left_sensor_strength=pheromone_map.sample(left_sensor)
+		forward_sensor_strength = pheromone_map.sample(forward_sensor)
+		right_sensor_strength = pheromone_map.sample(right_sensor)
 		
 		if left_sensor_strength <minimum_sense_strength  and forward_sensor_strength < minimum_sense_strength and right_sensor_strength < minimum_sense_strength:
 			wander(delta)
